@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>OMS Rénovation — Toulouse et agglomération</title>
+<meta name="description" content="Rénovation intérieure, cuisine, salle de bain, peinture, maçonnerie, façade et toiture à Toulouse. Devis gratuit.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--b:#A63D2A;--c:#F6E9DD;--d:#2B1710;--w:#FBEFE6}
+*{box-sizing:border-box}
+body{margin:0;background:var(--c);color:var(--d);font:16px/1.6 'DM Sans',sans-serif}
+h1,h2,h3,.logo{font-family:Fraunces,serif;line-height:1.05;margin:0}
+a{color:inherit;text-decoration:none}
+[hidden]{display:none!important}
+.w{max-width:1240px;margin:0 auto;padding:0 48px}
+header{display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;padding:20px 48px}
+.logo{font-size:24px;font-weight:700}
+nav{display:flex;flex-wrap:wrap;gap:26px;font-weight:500}
+nav a.on{color:var(--b);text-decoration:underline;text-underline-offset:6px}
+.btn{display:inline-block;background:var(--b);color:var(--w);border:0;border-radius:999px;padding:13px 26px;min-height:44px;font:700 15px 'DM Sans',sans-serif;cursor:pointer}
+.btn.l{background:var(--w);color:var(--b)}
+.hero{display:flex;flex-wrap:wrap;min-height:620px}
+.hl{flex:1 1 560px;background:var(--b);color:var(--w);padding:64px 56px 64px 48px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start}
+.hl h1{font-size:clamp(44px,6vw,84px);font-weight:600;letter-spacing:-.02em;margin:18px 0 22px}
+.hl p{max-width:460px;font-size:18px;margin:0 0 32px}
+.tag{font-size:13px;letter-spacing:.16em;text-transform:uppercase;font-weight:700}
+.hr{flex:1 1 460px;display:flex;gap:24px;align-items:flex-end;justify-content:center;padding:40px 48px}
+.hr .slot{flex:1 1 0;max-width:240px}
+.arch{border-radius:999px 999px 0 0}
+.slot{position:relative;overflow:hidden;background:repeating-linear-gradient(135deg,#E4CDBB 0 12px,#EBD7C7 12px 24px);display:flex;align-items:flex-end;justify-content:center;padding-bottom:16px;font-size:12px;color:#6B3A2A;text-align:center;border-radius:12px}
+.slot.arch{border-radius:999px 999px 0 0}
+.slot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.slot .ed{display:none;position:absolute;top:10px;left:10px;right:10px;gap:6px;z-index:2;flex-wrap:wrap;justify-content:center}
+body.edit .slot .ed{display:flex}
+.ed button{background:#fff;color:var(--d);border:1px solid var(--d);border-radius:8px;padding:6px 10px;font:700 12px 'DM Sans',sans-serif;cursor:pointer}
+.ed button[data-a=del]{color:#8A1F10}
+.band{background:var(--d);color:var(--c);padding:26px 48px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.band span{border:1px solid #C98F78;border-radius:999px;padding:8px 16px;font-size:14px}
+.sec{padding:80px 0}
+.sec h2{font-size:clamp(30px,3.6vw,46px);margin-bottom:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:32px;margin-top:40px}
+.card h3{font-size:24px;margin:16px 0 8px}
+.card p{margin:0;color:#5C4033}
+.card .slot{height:260px}
+.stats{display:flex;flex-wrap:wrap;gap:32px;justify-content:space-around;text-align:center;padding:56px 48px;background:#EFDDCD}
+.stats b{display:block;font:700 60px/1 Fraunces,serif;color:var(--b)}
+.pill{display:inline-block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--b);font-weight:700}
+.cta{background:var(--b);color:var(--w);text-align:center;padding:72px 24px}
+.cta h2{font-size:clamp(30px,4vw,52px);margin-bottom:24px}
+.two{display:flex;flex-wrap:wrap;gap:56px}
+.two>*{flex:1 1 380px}
+.two .slot{height:440px}
+form{display:grid;gap:14px}
+label{font-weight:700;font-size:14px;display:grid;gap:6px}
+input,select,textarea{font:inherit;padding:12px 14px;border:1px solid #CDB5A2;border-radius:10px;background:#fff;color:var(--d);width:100%}
+input:focus,select:focus,textarea:focus{outline:3px solid rgba(166,61,42,.25);border-color:var(--b)}
+footer{background:var(--d);color:var(--c);padding:28px 48px;display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;font-size:14px}
+footer a{text-decoration:underline}
+dialog{border:0;border-radius:16px;padding:28px;max-width:560px;width:92%;background:var(--w);color:var(--d)}
+dialog::backdrop{background:rgba(43,23,16,.6)}
+#bar{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);background:var(--d);color:#fff;border-radius:999px;padding:10px 12px 10px 22px;display:flex;gap:10px;align-items:center;z-index:50;box-shadow:0 10px 30px rgba(0,0,0,.35);font-size:14px;flex-wrap:wrap;justify-content:center}
+#bar .btn{padding:8px 16px;min-height:36px;font-size:13px}
+#toast{position:fixed;top:18px;left:50%;transform:translateX(-50%);background:var(--d);color:#fff;padding:12px 20px;border-radius:10px;z-index:99;font-size:14px}
+.req{border-bottom:1px solid #E2CDBB;padding:12px 0;font-size:14px}
+@media(max-width:700px){header,.hr,.band,footer{padding-left:20px;padding-right:20px}.w{padding:0 20px}.hl{padding:48px 20px}}
+</style>
+</head>
+<body>
+<header>
+  <a class="logo" href="#accueil">OMS Rénovation</a>
+  <nav><a href="#accueil">Accueil</a><a href="#realisations">Réalisations</a><a href="#a-propos">À propos</a><a href="#contact">Contact</a></nav>
+  <a class="btn" href="#contact">Demander un devis</a>
+</header>
+
+<main>
+<section data-page="accueil">
+  <div class="hero">
+    <div class="hl">
+      <span class="tag">Toulouse, la ville rose</span>
+      <h1>Votre intérieur, repensé de fond en comble.</h1>
+      <p>Une équipe locale qui coordonne tous les métiers du bâtiment pour livrer votre projet clé en main, sans mauvaise surprise.</p>
+      <a class="btn l" href="#contact">Démarrer mon projet</a>
+    </div>
+    <div class="hr">
+      <div class="slot arch" data-slot="hero1" data-l="photo · séjour rénové" style="height:470px"></div>
+      <div class="slot arch" data-slot="hero2" data-l="photo · cuisine équipée" style="height:380px"></div>
+    </div>
+  </div>
+  <div class="band"><span style="border:0;padding-left:0;letter-spacing:.14em;text-transform:uppercase;font-size:13px">Nos prestations</span><span>Rénovation intérieure</span><span>Cuisine &amp; salle de bain</span><span>Peinture &amp; revêtements</span><span>Maçonnerie &amp; gros œuvre</span><span>Façade &amp; toiture</span></div>
+  <div class="w sec">
+    <span class="pill">Ce que nous faisons</span>
+    <h2>Tout ce qu'il faut pour transformer un lieu de vie.</h2>
+    <div class="grid" id="services"></div>
+  </div>
+  <div class="stats"><div><b>15 ans</b>d'expérience sur le terrain</div><div><b>120+</b>chantiers livrés</div><div><b>10 ans</b>de garantie décennale</div></div>
+  <div class="cta"><h2>Un projet en tête ?</h2><a class="btn l" href="#contact">Demander un devis gratuit</a></div>
+</section>
+
+<section data-page="realisations" hidden>
+  <div class="w sec">
+    <span class="pill">Réalisations</span>
+    <h2>Quelques-uns de nos chantiers.</h2>
+    <div class="grid" id="projets"></div>
+  </div>
+</section>
+
+<section data-page="a-propos" hidden>
+  <div class="w sec">
+    <div class="two">
+      <div>
+        <span class="pill">À propos</span>
+        <h2 style="margin:12px 0 20px">Une équipe locale, un seul interlocuteur.</h2>
+        <p>OMS Rénovation coordonne tous les corps de métier pour livrer votre projet clé en main à Toulouse et dans son agglomération. Un planning établi en amont, un chiffrage clair poste par poste et une garantie décennale.</p>
+        <div class="grid" id="valeurs" style="margin-top:28px"></div>
+      </div>
+      <div class="slot" data-slot="about" data-l="photo · équipe / atelier"></div>
+    </div>
+    <h2 style="margin:72px 0 0">Comment ça se passe.</h2>
+    <div class="grid" id="etapes"></div>
+  </div>
+</section>
+
+<section data-page="contact" hidden>
+  <div class="w sec">
+    <div class="two">
+      <div>
+        <span class="pill">Contact</span>
+        <h2 style="margin:12px 0 20px">Parlons de votre projet.</h2>
+        <p>Décrivez-nous votre projet, nous revenons vers vous rapidement. Visite et devis gratuits.</p>
+        <p><b>Zone :</b> Toulouse &amp; agglomération (31)<br><b>Téléphone :</b> 05 •• •• •• ••<br><b>Email :</b> contact@oms-renovation.fr<br><b>Horaires :</b> Lun – Ven · 8h – 18h</p>
+      </div>
+      <form id="devis">
+        <label>Type de demande<select name="type"><option value="devis">Demande de devis</option><option value="contact">Simple question</option></select></label>
+        <label>Prestation<select name="service"><option>Rénovation intérieure complète</option><option>Cuisine &amp; salle de bain</option><option>Peinture &amp; revêtements</option><option>Maçonnerie &amp; gros œuvre</option><option>Façade &amp; toiture</option><option>Autre</option></select></label>
+        <label>Nom<input name="nom" required maxlength="190" autocomplete="name"></label>
+        <label>Email<input name="email" type="email" required maxlength="190" autocomplete="email"></label>
+        <label>Téléphone<input name="tel" type="tel" maxlength="30" autocomplete="tel"></label>
+        <label>Votre projet<textarea name="message" rows="5" maxlength="3900" required></textarea></label>
+        <button class="btn" id="send">Envoyer ma demande</button>
+      </form>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer><span>© 2026 OMS Rénovation — Tous droits réservés.</span><span>Garantie décennale · <a href="#" id="adm">Espace propriétaires</a></span></footer>
+
+<dialog id="login"><form id="lf"><h3 style="font-size:26px">Espace propriétaires</h3>
+  <label>Email<input name="email" type="email" required autocomplete="username"></label>
+  <label>Mot de passe<input name="password" type="password" required autocomplete="current-password"></label>
+  <div style="display:flex;gap:10px"><button class="btn">Se connecter</button><button class="btn l" type="button" data-close style="border:1px solid var(--b)">Annuler</button></div></form></dialog>
+<dialog id="inbox"><h3 style="font-size:26px;margin-bottom:12px">Demandes reçues</h3><div id="reqs"></div><p><button class="btn l" data-close style="border:1px solid var(--b)">Fermer</button></p></dialog>
+<div id="bar" hidden><span>Mode édition</span><button class="btn" id="seeReq">Demandes</button><button class="btn l" id="out">Déconnexion</button></div>
+<input type="file" id="file" accept="image/*" hidden>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script>
+// === À REMPLIR : Supabase > Project Settings > API ===
+const SUPABASE_URL = 'https://TON-PROJET.supabase.co';
+const SUPABASE_KEY = 'TA_CLE_ANON_PUBLIQUE';
+// =====================================================
+
+const sb = SUPABASE_URL.includes('TON-PROJET') ? null : supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+const BUCKET = 'site-images';
+let imgs = {}, cur = null;
+
+const SERVICES = [
+  ['Rénovation intérieure complète', "Cloisons, sols, électricité, plomberie : tous les corps de métier coordonnés pour une livraison clé en main."],
+  ['Cuisine & salle de bain', "Implantation, carrelage, meubles sur mesure et finitions soignées."],
+  ['Peinture & revêtements', "Murs, plafonds, boiseries, sols souples ou parquet : des finitions nettes."],
+  ['Maçonnerie & gros œuvre', "Ouverture de murs porteurs, extensions, dalles : les fondations d'un projet solide."],
+  ['Façade & toiture', "Ravalement, isolation par l'extérieur, couverture et étanchéité."]
+];
+const PROJETS = ['Rénovation appartement — Carmes', 'Cuisine ouverte — Compans', 'Façade de maison — Blagnac', 'Salle de bain — St-Cyprien', 'Peinture séjour — Minimes', 'Réfection toiture — Colomiers'];
+const VALEURS = [['Qualité artisanale', 'Des artisans qualifiés et des matériaux choisis pour durer.'], ['Délais respectés', "Un planning établi en amont et tenu."], ['Proximité client', 'Un interlocuteur unique, qui parle votre langage.']];
+const ETAPES = [['1. Échange & visite', 'On écoute votre projet et on évalue le lieu, gratuitement.'], ['2. Devis détaillé', 'Un chiffrage clair, poste par poste, sans surcoût caché.'], ['3. Réalisation', 'Nos équipes interviennent, coordonnées par un chef de chantier.'], ['4. Livraison & garantie', 'Remise des clés, vérification finale et garantie décennale.']];
+
+const slot = (id, label, h) => `<div class="slot" data-slot="${id}" data-l="${label}" style="height:${h}px"></div>`;
+const card = (t, p, extra = '') => `<div class="card">${extra}<h3>${t}</h3>${p ? `<p>${p}</p>` : ''}</div>`;
+$('#services').innerHTML = SERVICES.map((s, i) => card(s[0], s[1], slot('s' + (i + 1), 'photo · ' + s[0].toLowerCase(), 260))).join('');
+$('#projets').innerHTML = PROJETS.map((t, i) => card(t, '', slot('p' + (i + 1), 'photo · ' + t, 260))).join('');
+$('#valeurs').innerHTML = VALEURS.map(v => card(v[0], v[1])).join('');
+$('#etapes').innerHTML = ETAPES.map(v => card(v[0], v[1])).join('');
+
+// Initialise chaque emplacement photo (libellé + boutons d'édition)
+$$('.slot').forEach(s => {
+  s.insertAdjacentHTML('beforeend', `<span>${s.dataset.l}</span><div class="ed"><button data-a="up">Remplacer</button><button data-a="del">Supprimer</button></div>`);
+});
+
+function paint(s) {
+  const r = imgs[s.dataset.slot]; let i = s.querySelector('img');
+  if (r) { if (!i) { i = document.createElement('img'); i.alt = s.dataset.l; i.loading = 'lazy'; s.prepend(i); } i.src = r.url; }
+  else if (i) i.remove();
+}
+const paintAll = () => $$('.slot').forEach(paint);
+function toast(m) { const t = document.createElement('div'); t.id = 'toast'; t.textContent = m; document.body.append(t); setTimeout(() => t.remove(), 3200); }
+
+// ---- Navigation par #ancre ----
+const PAGES = ['accueil', 'realisations', 'a-propos', 'contact'];
+function route() {
+  const h = location.hash.slice(1), p = PAGES.includes(h) ? h : 'accueil';
+  $$('[data-page]').forEach(s => s.hidden = s.dataset.page !== p);
+  $$('nav a').forEach(a => a.classList.toggle('on', a.hash === '#' + p));
+  scrollTo(0, 0);
+}
+addEventListener('hashchange', route); route();
+
+// ---- Images depuis Supabase ----
+async function load() {
+  if (!sb) return;
+  const { data } = await sb.from('site_images').select('*');
+  (data || []).forEach(r => imgs[r.slot] = r);
+  paintAll();
+}
+
+// ---- Compression : 1600 px max, WebP qualité 0.8 ----
+async function pack(file) {
+  const bm = await createImageBitmap(file), k = Math.min(1, 1600 / Math.max(bm.width, bm.height));
+  const c = document.createElement('canvas'); c.width = Math.round(bm.width * k); c.height = Math.round(bm.height * k);
+  c.getContext('2d').drawImage(bm, 0, 0, c.width, c.height);
+  let b = await new Promise(r => c.toBlob(r, 'image/webp', .8));
+  if (!b || b.type !== 'image/webp') b = await new Promise(r => c.toBlob(r, 'image/jpeg', .82));
+  return b;
+}
+async function put(slotId, file) {
+  toast('Envoi en cours…');
+  try {
+    const b = await pack(file), ext = b.type === 'image/webp' ? 'webp' : 'jpg', path = `${slotId}-${Date.now()}.${ext}`;
+    let r = await sb.storage.from(BUCKET).upload(path, b, { contentType: b.type, cacheControl: '31536000' });
+    if (r.error) throw r.error;
+    const url = sb.storage.from(BUCKET).getPublicUrl(path).data.publicUrl, old = imgs[slotId];
+    r = await sb.from('site_images').upsert({ slot: slotId, url, path, updated_at: new Date().toISOString() });
+    if (r.error) throw r.error;
+    if (old) await sb.storage.from(BUCKET).remove([old.path]);
+    imgs[slotId] = { slot: slotId, url, path }; paintAll();
+    toast('Photo enregistrée (' + Math.round(b.size / 1024) + ' Ko)');
+  } catch (e) { toast('Erreur : ' + e.message); }
+}
+async function del(slotId) {
+  const old = imgs[slotId]; if (!old || !confirm('Supprimer cette photo ?')) return;
+  const r = await sb.from('site_images').delete().eq('slot', slotId);
+  if (r.error) return toast('Erreur : ' + r.error.message);
+  await sb.storage.from(BUCKET).remove([old.path]);
+  delete imgs[slotId]; paintAll(); toast('Photo supprimée');
+}
+document.addEventListener('click', e => {
+  if (e.target.matches('[data-close]')) e.target.closest('dialog').close();
+  const a = e.target.dataset.a; if (!a) return;
+  cur = e.target.closest('.slot').dataset.slot;
+  a === 'up' ? $('#file').click() : del(cur);
+});
+$('#file').onchange = e => { const f = e.target.files[0]; e.target.value = ''; if (f && cur) put(cur, f); };
+
+// ---- Formulaire devis ----
+$('#devis').onsubmit = async e => {
+  e.preventDefault();
+  if (!sb) return toast("Base de données non configurée");
+  const btn = $('#send'); btn.disabled = true;
+  const { error } = await sb.from('devis').insert(Object.fromEntries(new FormData(e.target)));
+  btn.disabled = false;
+  if (error) return toast("Envoi impossible, réessayez ou appelez-nous.");
+  e.target.reset(); toast('Merci ! Nous revenons vers vous très vite.');
+};
+
+// ---- Espace propriétaires ----
+const setEdit = on => { document.body.classList.toggle('edit', on); $('#bar').hidden = !on; };
+$('#adm').onclick = e => { e.preventDefault(); sb ? $('#login').showModal() : toast('Supabase non configuré'); };
+$('#lf').onsubmit = async e => {
+  e.preventDefault(); const f = e.target;
+  const { error } = await sb.auth.signInWithPassword({ email: f.email.value, password: f.password.value });
+  if (error) return toast('Identifiants incorrects');
+  $('#login').close(); f.reset(); setEdit(true);
+};
+$('#out').onclick = async () => { await sb.auth.signOut(); setEdit(false); };
+$('#seeReq').onclick = async () => {
+  const { data, error } = await sb.from('devis').select('*').order('created_at', { ascending: false }).limit(50);
+  const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  $('#reqs').innerHTML = error ? 'Erreur de chargement.' : (data.length ? data.map(r =>
+    `<div class="req"><b>${esc(r.nom)}</b> · ${esc(r.type)} · ${esc(r.service)}<br>${esc(r.email)} ${esc(r.tel)}<br>${esc(r.message)}<br><small>${new Date(r.created_at).toLocaleString('fr-FR')}</small></div>`).join('') : 'Aucune demande pour le moment.');
+  $('#inbox').showModal();
+};
+if (sb) { sb.auth.getSession().then(({ data }) => setEdit(!!data.session)); load(); }
+</script>
+</body>
+</html>
