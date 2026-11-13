@@ -163,7 +163,7 @@ const SUPABASE_KEY = 'sb_publishable_uIxe3gOpSdvnZUd9dYqGUA_YmjNEJJ1';
 // =====================================================
 
 const BASE_URL = SUPABASE_URL.trim().replace(/\/rest\/v1\/?$/, '').replace(/\/+$/, '');
-const sb = SUPABASE_URL.includes('TON-PROJET') ? null : supabase.createClient(BASE_URL, SUPABASE_KEY.trim());
+const sb = SUPABASE_URL.includes('https://jeqkyfuxcbfdlqasbmsi.supabase.co/rest/v1/') ? null : supabase.createClient(BASE_URL, SUPABASE_KEY.trim());
 const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
 const BUCKET = 'site-images';
 let imgs = {}, cur = null;
