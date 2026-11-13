@@ -32,10 +32,18 @@ nav a.on{color:var(--b);text-decoration:underline;text-underline-offset:6px}
 .slot{position:relative;overflow:hidden;background:repeating-linear-gradient(135deg,#E4CDBB 0 12px,#EBD7C7 12px 24px);display:flex;align-items:flex-end;justify-content:center;padding-bottom:16px;font-size:12px;color:#6B3A2A;text-align:center;border-radius:12px}
 .slot.arch{border-radius:999px 999px 0 0}
 .slot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.slot .ed{display:none;position:absolute;top:10px;left:10px;right:10px;gap:6px;z-index:2;flex-wrap:wrap;justify-content:center}
+.slot .ed{display:none;position:absolute;bottom:12px;left:10px;right:10px;gap:6px;z-index:2;flex-wrap:wrap;justify-content:center}
 body.edit .slot .ed{display:flex}
-.ed button{background:#fff;color:var(--d);border:1px solid var(--d);border-radius:8px;padding:6px 10px;font:700 12px 'DM Sans',sans-serif;cursor:pointer}
+body.edit .slot span{margin-bottom:44px}
+.ed button,.cr button{background:#fff;color:var(--d);border:1px solid var(--d);border-radius:8px;padding:6px 10px;font:700 12px 'DM Sans',sans-serif;cursor:pointer}
 .ed button[data-a=del]{color:#8A1F10}
+.slot .cr{display:none;position:absolute;bottom:12px;left:10px;right:10px;gap:6px;z-index:3;flex-wrap:wrap;justify-content:center;align-items:center}
+.slot.crop .cr{display:flex}
+body.edit .slot.crop .ed{display:none}
+.slot.crop{cursor:grab;touch-action:none;user-select:none}
+.slot.crop img{pointer-events:none}
+.cr input{padding:0;border:0;background:none;accent-color:var(--b)}
+.cr b{width:100%;text-align:center;font-size:12px;color:#fff;text-shadow:0 1px 3px #000}
 .band{background:var(--d);color:var(--c);padding:26px 48px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
 .band span{border:1px solid #C98F78;border-radius:999px;padding:8px 16px;font-size:14px}
 .sec{padding:80px 0}
@@ -156,14 +164,12 @@ dialog::backdrop{background:rgba(43,23,16,.6)}
 <input type="file" id="file" accept="image/*" hidden>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="config.js"></script>
 <script>
-// === À REMPLIR : Supabase > Project Settings > API ===
-const SUPABASE_URL = 'https://jeqkyfuxcbfdlqasbmsi.supabase.co';
-const SUPABASE_KEY = 'sb_publishable_uIxe3gOpSdvnZUd9dYqGUA_YmjNEJJ1';
-// =====================================================
-
-const BASE_URL = SUPABASE_URL.trim().replace(/\/rest\/v1\/?$/, '').replace(/\/+$/, '');
-const sb = SUPABASE_URL.includes('https://jeqkyfuxcbfdlqasbmsi.supabase.co/rest/v1/') ? null : supabase.createClient(BASE_URL, SUPABASE_KEY.trim());
+// L'URL et la clé Supabase sont dans config.js (ne pas les mettre ici)
+const CFG = { url: typeof SUPABASE_URL === 'undefined' ? '' : SUPABASE_URL, key: typeof SUPABASE_KEY === 'undefined' ? '' : SUPABASE_KEY };
+const BASE_URL = CFG.url.trim().replace(/\/rest\/v1\/?$/, '').replace(/\/+$/, '');
+const sb = (!CFG.url || CFG.url.includes('TON-PROJET')) ? null : supabase.createClient(BASE_URL, CFG.key.trim());
 const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
 const BUCKET = 'site-images';
 let imgs = {}, cur = null;
@@ -188,12 +194,13 @@ $('#etapes').innerHTML = ETAPES.map(v => card(v[0], v[1])).join('');
 
 // Initialise chaque emplacement photo (libellé + boutons d'édition)
 $$('.slot').forEach(s => {
-  s.insertAdjacentHTML('beforeend', `<span>${s.dataset.l}</span><div class="ed"><button data-a="up">Remplacer</button><button data-a="del">Supprimer</button></div>`);
+  s.insertAdjacentHTML('beforeend', `<span>${s.dataset.l}</span><div class="ed"><button data-a="up">Remplacer</button><button data-a="crop">Recadrer</button><button data-a="del">Supprimer</button></div><div class="cr"><b>Glissez la photo</b><input type="range" min="1" max="3" step=".05" value="1" aria-label="Zoom"><button data-a="ok">Valider</button><button data-a="no">Annuler</button></div>`);
 });
 
+function fit(i, x, y, z) { i.style.objectPosition = x + '% ' + y + '%'; i.style.transformOrigin = x + '% ' + y + '%'; i.style.transform = 'scale(' + z + ')'; }
 function paint(s) {
   const r = imgs[s.dataset.slot]; let i = s.querySelector('img');
-  if (r) { if (!i) { i = document.createElement('img'); i.alt = s.dataset.l; i.loading = 'lazy'; s.prepend(i); } i.src = r.url; }
+  if (r) { if (!i) { i = document.createElement('img'); i.alt = s.dataset.l; i.loading = 'lazy'; s.prepend(i); } i.src = r.url; fit(i, r.pos_x ?? 50, r.pos_y ?? 50, r.zoom ?? 1); }
   else if (i) i.remove();
 }
 const paintAll = () => $$('.slot').forEach(paint);
@@ -233,10 +240,10 @@ async function put(slotId, file) {
     let r = await sb.storage.from(BUCKET).upload(path, b, { contentType: b.type, cacheControl: '31536000' });
     if (r.error) throw r.error;
     const url = sb.storage.from(BUCKET).getPublicUrl(path).data.publicUrl, old = imgs[slotId];
-    r = await sb.from('site_images').upsert({ slot: slotId, url, path, updated_at: new Date().toISOString() });
+    r = await sb.from('site_images').upsert({ slot: slotId, url, path, pos_x: 50, pos_y: 50, zoom: 1, updated_at: new Date().toISOString() });
     if (r.error) throw r.error;
     if (old) await sb.storage.from(BUCKET).remove([old.path]);
-    imgs[slotId] = { slot: slotId, url, path }; paintAll();
+    imgs[slotId] = { slot: slotId, url, path, pos_x: 50, pos_y: 50, zoom: 1 }; paintAll();
     toast('Photo enregistrée (' + Math.round(b.size / 1024) + ' Ko)');
   } catch (e) { toast('Erreur : ' + e.message); }
 }
@@ -251,7 +258,43 @@ document.addEventListener('click', e => {
   if (e.target.matches('[data-close]')) e.target.closest('dialog').close();
   const a = e.target.dataset.a; if (!a) return;
   cur = e.target.closest('.slot').dataset.slot;
-  a === 'up' ? $('#file').click() : del(cur);
+  if (a === 'ok' || a === 'no') return endCrop(a === 'ok');
+  if (cs) return toast('Terminez le recadrage en cours');
+  a === 'up' ? $('#file').click() : a === 'crop' ? crop(cur) : del(cur);
+});
+
+// ---- Recadrage : glisser pour déplacer, curseur pour zoomer ----
+let cs = null;
+const clamp = v => Math.min(100, Math.max(0, v));
+function crop(id) {
+  const r = imgs[id]; if (!r) return toast("Ajoutez d'abord une photo");
+  const el = $(`[data-slot="${id}"]`);
+  cs = { el, id, x: r.pos_x ?? 50, y: r.pos_y ?? 50, z: r.zoom ?? 1, d: null };
+  el.querySelector('.cr input').value = cs.z; el.classList.add('crop');
+}
+async function endCrop(save) {
+  const c = cs; cs = null; c.el.classList.remove('crop');
+  if (!save) return paint(c.el);
+  const v = { pos_x: +c.x.toFixed(1), pos_y: +c.y.toFixed(1), zoom: +(+c.z).toFixed(2) };
+  const { error } = await sb.from('site_images').update(v).eq('slot', c.id);
+  if (error) { paint(c.el); return toast('Erreur : ' + error.message); }
+  Object.assign(imgs[c.id], v); paint(c.el); toast('Cadrage enregistré');
+}
+document.addEventListener('pointerdown', e => {
+  if (!cs || !cs.el.contains(e.target) || e.target.closest('.cr')) return;
+  cs.d = { x: e.clientX, y: e.clientY, px: cs.x, py: cs.y }; e.preventDefault();
+});
+document.addEventListener('pointermove', e => {
+  if (!cs || !cs.d) return;
+  const i = cs.el.querySelector('img'), w = cs.el.clientWidth, h = cs.el.clientHeight, k = Math.max(w / i.naturalWidth, h / i.naturalHeight), ex = cs.z - 1;
+  const sx = Math.max(i.naturalWidth * k - w + ex * w, 60), sy = Math.max(i.naturalHeight * k - h + ex * h, 60);
+  cs.x = clamp(cs.d.px - (e.clientX - cs.d.x) / sx * 100); cs.y = clamp(cs.d.py - (e.clientY - cs.d.y) / sy * 100);
+  fit(i, cs.x, cs.y, cs.z);
+});
+document.addEventListener('pointerup', () => { if (cs) cs.d = null; });
+document.addEventListener('input', e => {
+  if (!cs || !e.target.matches('.cr input')) return;
+  cs.z = +e.target.value; fit(cs.el.querySelector('img'), cs.x, cs.y, cs.z);
 });
 $('#file').onchange = e => { const f = e.target.files[0]; e.target.value = ''; if (f && cur) put(cur, f); };
 
