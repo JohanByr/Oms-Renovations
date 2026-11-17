@@ -66,6 +66,10 @@ input,select,textarea{font:inherit;padding:12px 14px;border:1px solid #CDB5A2;bo
 input:focus,select:focus,textarea:focus{outline:3px solid rgba(166,61,42,.25);border-color:var(--b)}
 footer{background:var(--d);color:var(--c);padding:28px 48px;display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;font-size:14px}
 footer a{text-decoration:underline}
+mark{background:#FFE08A;color:#2B1710;padding:0 4px;border-radius:3px}
+.legal h3{font-size:22px;margin:34px 0 8px}
+.legal p,.legal li{max-width:780px}
+.legal li{margin:4px 0}
 dialog{border:0;border-radius:16px;padding:28px;max-width:560px;width:92%;background:var(--w);color:var(--d)}
 dialog::backdrop{background:rgba(43,23,16,.6)}
 #bar{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);background:var(--d);color:#fff;border-radius:999px;padding:10px 12px 10px 22px;display:flex;gap:10px;align-items:center;z-index:50;box-shadow:0 10px 30px rgba(0,0,0,.35);font-size:14px;flex-wrap:wrap;justify-content:center}
@@ -146,14 +150,65 @@ dialog::backdrop{background:rgba(43,23,16,.6)}
         <label>Email<input name="email" type="email" required maxlength="190" autocomplete="email"></label>
         <label>Téléphone<input name="tel" type="tel" maxlength="30" autocomplete="tel"></label>
         <label>Votre projet<textarea name="message" rows="5" maxlength="3900" required></textarea></label>
+        <div style="position:absolute;left:-9999px" aria-hidden="true"><label>Site web<input name="website" tabindex="-1" autocomplete="off"></label></div>
+        <label style="font-weight:400;display:flex;gap:10px;align-items:flex-start"><input type="checkbox" name="consent" required style="width:auto;margin-top:6px"><span>J'accepte que ces informations soient utilisées pour répondre à ma demande. <a href="#confidentialite" style="text-decoration:underline">En savoir plus</a></span></label>
         <button class="btn" id="send">Envoyer ma demande</button>
       </form>
     </div>
   </div>
 </section>
+<section data-page="mentions-legales" hidden>
+  <div class="w sec legal">
+    <span class="pill">Informations légales</span>
+    <h2>Mentions légales</h2>
+    <p><small>Les passages surlignés sont à compléter avec les informations réelles de l'entreprise.</small></p>
+    <h3>Éditeur du site</h3>
+    <p>OMS Rénovation — <mark>[forme juridique : ex. SASU, EURL, entreprise individuelle]</mark><br>
+    Capital social : <mark>[montant, si société]</mark><br>
+    Siège : <mark>[adresse complète]</mark><br>
+    SIRET : <mark>[numéro]</mark> · TVA intracommunautaire : <mark>[numéro, si applicable]</mark><br>
+    Email : contact@oms-renovation.fr · Téléphone : <mark>[numéro]</mark><br>
+    Directeur de la publication : <mark>[nom et prénom]</mark></p>
+    <h3>Hébergement</h3>
+    <p>Site hébergé par GitHub, Inc. (GitHub Pages), 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis.<br>
+    Base de données et stockage des photos : Supabase, région <mark>[région choisie à la création du projet]</mark>.</p>
+    <h3>Assurance décennale</h3>
+    <p>Assureur : <mark>[nom]</mark> · Contrat n° <mark>[numéro]</mark> · Couverture géographique : <mark>[ex. France métropolitaine]</mark></p>
+    <h3>Médiation de la consommation</h3>
+    <p>En cas de litige, le client consommateur peut recourir gratuitement au médiateur de la consommation : <mark>[nom et coordonnées du médiateur]</mark>.</p>
+    <h3>Propriété intellectuelle</h3>
+    <p>Les textes, photos et éléments graphiques du site sont la propriété d'OMS Rénovation, sauf mention contraire. Toute reproduction sans autorisation écrite est interdite.</p>
+    <h3>Responsabilité</h3>
+    <p>Les informations du site sont données à titre indicatif. Seul un devis signé engage OMS Rénovation sur le prix et les prestations.</p>
+    <h3>Conception du site</h3>
+    <p><mark>[nom du créateur du site, si souhaité]</mark></p>
+  </div>
+</section>
+
+<section data-page="confidentialite" hidden>
+  <div class="w sec legal">
+    <span class="pill">Données personnelles</span>
+    <h2>Politique de confidentialité</h2>
+    <p><small>Dernière mise à jour : 17 novembre 2026. Les passages surlignés sont à compléter ou à valider.</small></p>
+    <h3>Qui est responsable de vos données ?</h3>
+    <p>OMS Rénovation, <mark>[adresse du siège]</mark>, contact : contact@oms-renovation.fr.</p>
+    <h3>Quelles données et pourquoi ?</h3>
+    <p>Quand vous remplissez le formulaire de contact, nous recevons : votre nom, votre email, votre téléphone (facultatif), la prestation choisie et votre message. Ces données servent uniquement à répondre à votre demande et à établir un devis. Elles reposent sur votre consentement (case cochée avant l'envoi) et sur les mesures précontractuelles que vous nous demandez.</p>
+    <h3>Combien de temps ?</h3>
+    <p>Vos données sont conservées <mark>[durée à valider : 3 ans à compter du dernier contact est une durée courante]</mark>, puis supprimées.</p>
+    <h3>Qui y a accès ?</h3>
+    <p>Uniquement l'équipe d'OMS Rénovation, ainsi que nos prestataires techniques qui traitent les données pour notre compte :</p>
+    <ul><li>Supabase : base de données qui enregistre les demandes ;</li><li>Resend : service d'envoi de l'email de notification interne ;</li><li>GitHub : hébergement du site ;</li><li>Google Fonts : chargement des polices d'écriture (votre adresse IP est transmise à Google lors de l'affichage du site).</li></ul>
+    <p>Certains de ces prestataires sont situés hors de l'Union européenne (notamment aux États-Unis). Les transferts sont encadrés par les clauses contractuelles types ou le cadre de protection des données applicable.</p>
+    <h3>Cookies</h3>
+    <p>Ce site n'utilise ni cookie publicitaire ni outil de mesure d'audience. Un stockage technique local n'est utilisé que pour la connexion des propriétaires du site.</p>
+    <h3>Vos droits</h3>
+    <p>Vous pouvez demander l'accès, la rectification, l'effacement, la limitation ou la portabilité de vos données, et vous opposer à leur traitement, en écrivant à contact@oms-renovation.fr. Vous pouvez aussi déposer une réclamation auprès de la CNIL (cnil.fr).</p>
+  </div>
+</section>
 </main>
 
-<footer><span>© 2026 OMS Rénovation — Tous droits réservés.</span><span>Garantie décennale · <a href="#" id="adm">Espace propriétaires</a></span></footer>
+<footer><span>© 2026 OMS Rénovation — Tous droits réservés.</span><span><a href="#mentions-legales">Mentions légales</a> · <a href="#confidentialite">Confidentialité</a> · <a href="#" id="adm">Espace propriétaires</a></span></footer>
 
 <dialog id="login"><form id="lf"><h3 style="font-size:26px">Espace propriétaires</h3>
   <label>Email<input name="email" type="email" required autocomplete="username"></label>
@@ -207,7 +262,7 @@ const paintAll = () => $$('.slot').forEach(paint);
 function toast(m) { const t = document.createElement('div'); t.id = 'toast'; t.textContent = m; document.body.append(t); setTimeout(() => t.remove(), 3200); }
 
 // ---- Navigation par #ancre ----
-const PAGES = ['accueil', 'realisations', 'a-propos', 'contact'];
+const PAGES = ['accueil', 'realisations', 'a-propos', 'contact', 'mentions-legales', 'confidentialite'];
 function route() {
   const h = location.hash.slice(1), p = PAGES.includes(h) ? h : 'accueil';
   $$('[data-page]').forEach(s => s.hidden = s.dataset.page !== p);
@@ -299,14 +354,18 @@ document.addEventListener('input', e => {
 $('#file').onchange = e => { const f = e.target.files[0]; e.target.value = ''; if (f && cur) put(cur, f); };
 
 // ---- Formulaire devis ----
+const T0 = Date.now();
 $('#devis').onsubmit = async e => {
   e.preventDefault();
-  if (!sb) return toast("Base de données non configurée");
+  const d = Object.fromEntries(new FormData(e.target)), ok = () => { e.target.reset(); toast('Merci ! Nous revenons vers vous très vite.'); };
+  if (d.website || Date.now() - T0 < 3000) return ok(); // robot : on fait semblant, rien n'est envoyé
+  delete d.website; delete d.consent; d.consentement = true;
+  if (!sb) return toast('Base de données non configurée');
   const btn = $('#send'); btn.disabled = true;
-  const { error } = await sb.from('devis').insert(Object.fromEntries(new FormData(e.target)));
+  const { error } = await sb.from('devis').insert(d);
   btn.disabled = false;
-  if (error) return toast("Envoi impossible, réessayez ou appelez-nous.");
-  e.target.reset(); toast('Merci ! Nous revenons vers vous très vite.');
+  if (error) return toast(/Trop de demandes|saturé/.test(error.message) ? error.message : 'Envoi impossible, réessayez ou appelez-nous.');
+  ok();
 };
 
 // ---- Espace propriétaires ----
